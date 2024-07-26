@@ -1,30 +1,25 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection } from 'firebase/firestore'
-import { getEnv } from "~/config/env.config";
-
-const firebaseConfig = {
-  apiKey: getEnv<string>("FIREBASE_API_KEY"),
-  authDomain: getEnv<string>("FIREBASE_AUTH_DOMAIN"),
-  projectId: getEnv<string>("FIREBASE_PROJECT_ID"),
-  storageBucket: getEnv<string>("FIREBASE_STORAGE_BUCKET"),
-  messagingSenderId: getEnv<string>("FIREBASE_MESSAGING_SENDER_ID"),
-  appId: getEnv<string>("FIREBASE_APP_ID"),
-};
+import { getFirestore, collection, doc, addDoc, getDocs, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { firebaseConfig } from "~/config/firebase.config";
 
 const firebaseApp = initializeApp(firebaseConfig);
-const db = getFirestore(firebaseApp)
-
-console.log(firebaseApp);
+const db = getFirestore(firebaseApp);
 
 export const FirebaseService = {
   getFirestore: () => db,
   getCollection: (collectionName: string) => collection(db, collectionName),
 
+  async getDocuments(collectionName: string) {
+    const docsSnap = await getDocs(collection(db, collectionName));
+
+    return docsSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  },
+
   async createDocument(collectionName: string, data: any) {
     const docRef = await addDoc(collection(db, collectionName), data);
     return {
       id: docRef.id,
-      ...data
+      ...data,
     };
   },
 
@@ -35,7 +30,7 @@ export const FirebaseService = {
     if (docSnap.exists()) {
       return {
         id: docSnap.id,
-        ...docSnap.data()
+        ...docSnap.data(),
       };
     } else {
       return null;
@@ -48,7 +43,7 @@ export const FirebaseService = {
 
     return {
       id: documentId,
-      ...data
+      ...data,
     };
   },
 
@@ -57,7 +52,7 @@ export const FirebaseService = {
     await deleteDoc(docRef);
 
     return {
-      id: documentId
+      id: documentId,
     };
-  }
+  },
 };
