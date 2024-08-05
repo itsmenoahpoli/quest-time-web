@@ -1,9 +1,24 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { ref, onMounted } from "vue";
+import { format } from "date-fns";
+
+const datetime = format(new Date(), "MMMM dd, yyyy hh:mma");
+const datetimeRef = ref(datetime);
+
+onMounted(() => {
+	setInterval(() => {
+		datetimeRef.value = datetime;
+	}, 60 * 1000);
+});
+</script>
 
 <template>
 	<div class="h-screen w-screen bg-slate-50">
-		<div class="h-[50px] w-screen bg-slate-900 flex items-center shadow px-10">
-			<h1 class="text-white">Quest Time</h1>
+		<div
+			class="h-[50px] w-screen bg-slate-900 flex flex-row justify-between items-center shadow px-10"
+		>
+			<h1 class="text-white font-bold">QUEST TIME DASHBOARD</h1>
+			<p class="text-sm text-white">{{ datetimeRef }}</p>
 		</div>
 
 		<div class="h-full flex flex-col items-center gap-y-4 pt-[10%]">

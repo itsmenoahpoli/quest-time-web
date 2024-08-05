@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "date-fns": "^3.6.0",
     "feather-icons": "^4.29.2",
     "firebase": "^10.12.4",
     "flowbite": "^2.4.1",

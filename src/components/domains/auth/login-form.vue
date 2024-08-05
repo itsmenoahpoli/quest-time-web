@@ -3,6 +3,7 @@ import { FwbInput, FwbButton } from "flowbite-vue";
 import { ref, onMounted } from "vue";
 import { useForm, type FieldOptions } from "vue-hooks-form";
 import { useStorage } from "~/composables";
+import { AuthService } from "~/services";
 import type { Credentials } from "~/types/auth";
 const { useField, handleSubmit } = useForm();
 const { setStorageValue, getStorageValue } = useStorage();
@@ -25,6 +26,8 @@ const onFormSubmit = handleSubmit((formData: unknown) => {
 	if (rememberMe) {
 		setStorageValue("remember-credentials", formData as Credentials);
 	}
+
+	return AuthService.loginToAccount(formData as Credentials);
 });
 
 const checkRememberMe = () => {
@@ -42,7 +45,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<form @submit.prevent.once="onFormSubmit" class="flex flex-col gap-y-4">
+	<form @submit="onFormSubmit" class="flex flex-col gap-y-4">
 		<h1 class="text-center">LOGIN TO YOUR ACCOUNT</h1>
 		<FwbInput
 			type="email"
@@ -57,7 +60,7 @@ onMounted(() => {
 			placeholder="Enter your password"
 		/>
 		<a href="#" class="text-sm text-blue-700 text-right underline">Forgot your password?</a>
-		<FwbButton type="submit">SIGN IN</FwbButton>
+		<FwbButton type="submit">LOGIN</FwbButton>
 		<RouterLink to="/auth/register">
 			<FwbButton color="light" class="w-full">CREATE ACCOUNT</FwbButton>
 		</RouterLink>
