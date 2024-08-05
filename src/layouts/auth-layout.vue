@@ -3,9 +3,11 @@ import { ref, onMounted } from "vue";
 import { format } from "date-fns";
 
 const datetime = format(new Date(), "MMMM dd, yyyy hh:mma");
-const datetimeRef = ref(datetime);
+const datetimeRef = ref();
 
 onMounted(() => {
+	datetimeRef.value = datetime;
+
 	setInterval(() => {
 		datetimeRef.value = datetime;
 	}, 60 * 1000);

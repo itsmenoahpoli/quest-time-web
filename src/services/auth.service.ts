@@ -44,6 +44,10 @@ export const AuthService = {
 					email: user.email,
 				});
 				response.user.getIdToken().then((token) => SET_TOKEN(token));
+
+				setTimeout(() => {
+					window.location.pathname = "/dashboard/overview";
+				}, 2000);
 			})
 			.catch((error) => {
 				this.handleError(error, "Invalid credentials provided, please try again");
@@ -51,7 +55,9 @@ export const AuthService = {
 	},
 
 	signoutAccount: function () {
-		return signOut(this.auth);
+		signOut(this.auth).then(() => {
+			window.location.pathname = "/auth/login";
+		});
 	},
 
 	onAuthStateChanged: function (callback: (user: User | null) => void) {
