@@ -18,7 +18,8 @@
     "vue": "^3.4.31",
     "vue-feather": "^2.0.0",
     "vue-hooks-form": "^0.3.1",
-    "vue-router": "^4.4.0"
+    "vue-router": "^4.4.0",
+    "vue3-toastify": "^0.2.2"
   },
   "devDependencies": {
     "@types/node": "^20.14.12",
