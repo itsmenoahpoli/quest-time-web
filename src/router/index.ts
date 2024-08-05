@@ -26,6 +26,10 @@ const router = createRouter({
 				{
 					path: "/dashboard/overview",
 					name: "dashboard-overview",
+					meta: {
+						title: "Dashboard Overview",
+						description: "View overall data of teachers and students",
+					},
 					component: () => import("~/views/dashboard/overview.vue"),
 				},
 			],
