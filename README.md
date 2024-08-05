@@ -17,3 +17,17 @@ cp .env.example .env # After doing this, please set the appropriate keys for our
 
 npm run dev
 ```
+
+## Modules
+
+- [x] Firebase Auth Implementation
+- [x] Firebase Firestore Implementation
+- [x] Login
+- [x] Logout
+- [x] Create/Register Account
+- [ ] Teacher - Manage subjects
+- [ ] Teacher - Manage questions under subject
+- [ ]
+- [ ]
+- [ ]
+- [ ]
