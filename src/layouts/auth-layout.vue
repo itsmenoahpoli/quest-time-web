@@ -15,21 +15,19 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="h-screen w-screen bg-slate-50">
-		<div
-			class="h-[50px] w-screen bg-slate-900 flex flex-row justify-between items-center shadow px-10"
-		>
+	<div class="h-screen w-full bg-green-700">
+		<div class="h-[50px] bg-slate-900 flex flex-row justify-between items-center shadow px-10">
 			<h1 class="text-white font-bold">QUEST TIME DASHBOARD</h1>
 			<p class="text-sm text-white">{{ datetimeRef }}</p>
 		</div>
 
 		<div class="h-full flex flex-col items-center gap-y-4 pt-[10%]">
-			<div class="w-[400px] bg-white border shadow p-5" style="zoom: 0.8">
+			<div class="w-[400px] bg-white border rounded-md shadow p-5" style="zoom: 0.8">
 				<RouterView />
 			</div>
 
 			<div class="text-center">
-				<p class="text-xs text-gray-600">&copy; All Rights Reserved. 2024</p>
+				<p class="text-xs text-gray-200">&copy; All Rights Reserved. 2024</p>
 			</div>
 		</div>
 	</div>
