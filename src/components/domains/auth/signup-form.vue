@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import { FwbInput, FwbButton } from "flowbite-vue";
-import { onMounted } from "vue";
 import { useForm, type FieldOptions } from "vue-hooks-form";
 import { AuthService } from "~/services";
-import type { Credentials } from "~/types/auth";
 
 const { useField, handleSubmit } = useForm();
 
@@ -31,13 +29,9 @@ const formFields = {
 };
 
 const onFormSubmit = handleSubmit(async (formData: unknown) => {
-	console.log(formData as Credentials);
-	return await AuthService.createAccount();
+	return await AuthService.createAccount(formData as any);
 });
 
-onMounted(async () => {
-	await AuthService.createAccount();
-});
 </script>
 
 <template>
