@@ -4,6 +4,10 @@ const router = createRouter({
 	history: createWebHistory(),
 	routes: [
 		{
+			path: "/",
+			redirect: "/auth/login",
+		},
+		{
 			path: "/auth",
 			component: () => import("~/layouts/auth-layout.vue"),
 			children: [

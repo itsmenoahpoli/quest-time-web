@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { firebaseConfig } from "~/config/firebase.config";
 
-const firebaseApp = initializeApp(firebaseConfig);
+export const firebaseApp = initializeApp(firebaseConfig);
 
 export const FirebaseService = {
 	db: getFirestore(firebaseApp),
