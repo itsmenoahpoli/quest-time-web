@@ -14,12 +14,12 @@ import { useAuthStore } from "~/store";
 import { handleError } from "~/utils";
 import type { Credentials, ProfileData } from "~/types/auth";
 
-const app = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
 
 export const AuthService = {
-	auth: getAuth(app),
+	auth: getAuth(firebaseApp),
 
-	createAccount: async function (accountData: ProfileData) {
+	async createAccount(accountData: ProfileData) {
 		return await createUserWithEmailAndPassword(this.auth, accountData.email, accountData.password)
 			.then(async (response) => {
 				await updateProfile(response.user, {
@@ -32,7 +32,7 @@ export const AuthService = {
 			});
 	},
 
-	loginToAccount: async function (credentials: Credentials) {
+	async loginToAccount(credentials: Credentials) {
 		return signInWithEmailAndPassword(this.auth, credentials.email, credentials.password)
 			.then((response) => {
 				const { user } = response;
@@ -52,7 +52,7 @@ export const AuthService = {
 			});
 	},
 
-	signoutAccount: function () {
+	signoutAccount() {
 		const { CLEAR_AUTH } = useAuthStore();
 
 		CLEAR_AUTH();
@@ -62,7 +62,9 @@ export const AuthService = {
 		});
 	},
 
-	onAuthStateChanged: function (callback: (user: User | null) => void) {
+	onAuthStateChanged(callback: (user: User | null) => void) {
 		onAuthStateChanged(this.auth, callback);
 	},
+
+	async _getUserProfile(email: string) {},
 };
