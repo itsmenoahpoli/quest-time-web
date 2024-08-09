@@ -4,8 +4,13 @@ import pluginPersistedState from "pinia-plugin-persistedstate";
 import VueFeather from "vue-feather";
 import Vue3Toastify, { type ToastContainerOptions } from "vue3-toastify";
 import RootApp from "~/App.vue";
+
+/**
+ * Styles
+ */
 import "~/styles/global.css";
-import "../node_modules/flowbite-vue/dist/index.css";
+import "@node_modules/flowbite-vue/dist/index.css";
+import "@node_modules/vue3-toastify/dist/index.css";
 
 import router from "~/router";
 
@@ -24,5 +29,7 @@ app.use(pinia);
 app.use(router);
 app.use(Vue3Toastify, {
 	autoClose: 3000,
+	theme: "colored",
+	position: "top-center",
 } as ToastContainerOptions);
 app.mount("#app");

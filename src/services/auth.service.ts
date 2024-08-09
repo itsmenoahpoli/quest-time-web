@@ -9,27 +9,26 @@ import {
 	updateProfile,
 } from "firebase/auth";
 import { toast } from "vue3-toastify";
-import { firebaseConfig } from "~/config/firebase.config";
+import { firebaseConfig } from "~/config";
 import { useAuthStore } from "~/store";
-import type { Credentials } from "~/types/auth";
+import { handleError } from "~/utils";
+import type { Credentials, ProfileData } from "~/types/auth";
 
 const app = initializeApp(firebaseConfig);
 
 export const AuthService = {
-	handleError: function (error: unknown, message: string) {
-		console.log({ error, message });
-	},
-
 	auth: getAuth(app),
 
-	createAccount: async function (credentials: Credentials & { name: string }) {
-		return await createUserWithEmailAndPassword(this.auth, credentials.email, credentials.password)
+	createAccount: async function (accountData: ProfileData) {
+		return await createUserWithEmailAndPassword(this.auth, accountData.email, accountData.password)
 			.then(async (response) => {
-				await updateProfile(response.user, { displayName: credentials.name });
+				await updateProfile(response.user, {
+					displayName: `${accountData.first_name} ${accountData.last_name}`,
+				});
 				toast.success("Account succesfully created");
 			})
 			.catch((error) => {
-				this.handleError(error, "User details already exists");
+				handleError(error, "User details already exists");
 			});
 	},
 
@@ -43,18 +42,21 @@ export const AuthService = {
 					displayName: user.displayName,
 					email: user.email,
 				});
+
 				response.user.getIdToken().then((token) => SET_TOKEN(token));
 
-				setTimeout(() => {
-					window.location.pathname = "/dashboard/overview";
-				}, 2000);
+				window.location.pathname = "/dashboard/overview";
 			})
 			.catch((error) => {
-				this.handleError(error, "Invalid credentials provided, please try again");
+				handleError(error, "Invalid credentials provided, please try again");
 			});
 	},
 
 	signoutAccount: function () {
+		const { CLEAR_AUTH } = useAuthStore();
+
+		CLEAR_AUTH();
+
 		signOut(this.auth).then(() => {
 			window.location.pathname = "/auth/login";
 		});

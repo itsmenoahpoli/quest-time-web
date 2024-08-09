@@ -1,1 +1,3 @@
-export { firebaseConfig } from "./firebase.config";
+import { firebaseConfig } from "./firebase.config";
+
+export { firebaseConfig };

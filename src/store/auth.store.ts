@@ -14,5 +14,9 @@ export const useAuthStore = defineStore("auth-store", {
 		SET_TOKEN(token: any) {
 			this.token = token;
 		},
+		CLEAR_AUTH() {
+			this.user = undefined;
+			this.token = undefined;
+		},
 	},
 });

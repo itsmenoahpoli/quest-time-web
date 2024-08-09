@@ -12,7 +12,7 @@ const handleLogout = () => {
 
 <template>
 	<div class="min-h-screen w-screen bg-slate-100">
-		<div class="h-[150px] w-screen bg-green-700 flex flex-col justify-between shadow">
+		<div class="h-[150px] w-screen bg-green-600 flex flex-col justify-between shadow">
 			<div class="container flex flex-row justify-between mx-auto py-3">
 				<div class="flex flex-row items-center gap-x-1">
 					<h1 class="text-white font-medium">QUEST TIME DASHBOARD</h1>
