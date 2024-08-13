@@ -1,4 +1,3 @@
-import { initializeApp } from "firebase/app";
 import {
 	getAuth,
 	createUserWithEmailAndPassword,
@@ -12,6 +11,7 @@ import { toast } from "vue3-toastify";
 import { FirebaseService, firebaseApp } from "./firebase.service";
 import { useAuthStore } from "~/store";
 import { handleError } from "~/utils";
+import { ROUTES } from "~/constants";
 import type { Credentials, ProfileData } from "~/types/auth";
 
 export const AuthService = {
@@ -23,6 +23,7 @@ export const AuthService = {
 				await updateProfile(response.user, {
 					displayName: `${accountData.first_name} ${accountData.last_name}`,
 				});
+
 				toast.success("Account succesfully created");
 			})
 			.catch((error) => {
@@ -42,9 +43,11 @@ export const AuthService = {
 					displayName: user.displayName,
 					email: user.email,
 				});
-				response.user.getIdToken().then((token) => SET_TOKEN(token));
+				const token = await response.user.getIdToken();
 
-				window.location.pathname = "/dashboard/overview";
+				SET_TOKEN(token);
+
+				window.location.pathname = ROUTES.DASHBOARD;
 			})
 			.catch((error) => {
 				handleError(error, "Invalid credentials provided, please try again");
@@ -57,7 +60,7 @@ export const AuthService = {
 		CLEAR_AUTH();
 
 		signOut(this.auth).then(() => {
-			window.location.pathname = "/auth/login";
+			window.location.pathname = ROUTES.AUTH.LOGIN;
 		});
 	},
 

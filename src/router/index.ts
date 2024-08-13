@@ -1,23 +1,24 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { ROUTES } from "~/constants";
 
 const router = createRouter({
 	history: createWebHistory(),
 	routes: [
 		{
 			path: "/",
-			redirect: "/auth/login",
+			redirect: ROUTES.AUTH.LOGIN,
 		},
 		{
 			path: "/auth",
 			component: () => import("~/layouts/auth-layout.vue"),
 			children: [
 				{
-					path: "/auth/login",
+					path: ROUTES.AUTH.LOGIN,
 					name: "auth-login",
 					component: () => import("~/views/auth/login.vue"),
 				},
 				{
-					path: "/auth/register",
+					path: ROUTES.AUTH.REGISTER,
 					name: "auth-register",
 					component: () => import("~/views/auth/register.vue"),
 				},
@@ -28,7 +29,7 @@ const router = createRouter({
 			component: () => import("~/layouts/dashboard-layout.vue"),
 			children: [
 				{
-					path: "/dashboard/overview",
+					path: ROUTES.DASHBOARD,
 					name: "dashboard-overview",
 					meta: {
 						title: "Dashboard Overview",

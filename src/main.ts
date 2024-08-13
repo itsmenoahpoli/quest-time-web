@@ -1,6 +1,6 @@
 import { createApp, App } from "vue";
 import { createPinia, Pinia } from "pinia";
-import pluginPersistedState from "pinia-plugin-persistedstate";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import VueFeather from "vue-feather";
 import Vue3Toastify, { type ToastContainerOptions } from "vue3-toastify";
 import RootApp from "~/App.vue";
@@ -15,7 +15,9 @@ import "@node_modules/vue3-toastify/dist/index.css";
 import router from "~/router";
 
 const app: App = createApp(RootApp);
-const pinia: Pinia = createPinia().use(pluginPersistedState);
+const pinia: Pinia = createPinia();
+
+pinia.use(piniaPluginPersistedstate);
 
 /**
  * Components

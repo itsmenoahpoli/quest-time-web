@@ -1,9 +1,12 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 import { FwbInput, FwbSelect, FwbButton } from "flowbite-vue";
 import { useForm, type FieldOptions } from "vue-hooks-form";
 import { AuthService } from "~/services";
+import { ROUTES } from "~/constants";
 
 const { useField, handleSubmit } = useForm();
+const loading = ref<boolean>(false);
 
 const accountTypeOptions = [
 	{
@@ -55,7 +58,9 @@ const formFields = {
 };
 
 const onFormSubmit = handleSubmit(async (formData: unknown) => {
-	return await AuthService.createAccount(formData as any);
+	loading.value = true;
+
+	return await AuthService.createAccount(formData as any).finally(() => (loading.value = false));
 });
 </script>
 
@@ -105,9 +110,11 @@ const onFormSubmit = handleSubmit(async (formData: unknown) => {
 			:ref="formFields.confirm_password.ref"
 			placeholder="Re-Enter your password"
 		/>
-		<FwbButton type="submit">CREATE ACCOUNT</FwbButton>
-		<RouterLink to="/auth/login">
-			<FwbButton color="light" class="w-full">BACK TO LOGIN</FwbButton>
+		<FwbButton type="submit" :disabled="loading">{{
+			loading ? "..." : "CREATE ACCOUNT"
+		}}</FwbButton>
+		<RouterLink :to="ROUTES.AUTH.LOGIN">
+			<FwbButton color="light" class="w-full">GO TO LOGIN</FwbButton>
 		</RouterLink>
 	</form>
 </template>

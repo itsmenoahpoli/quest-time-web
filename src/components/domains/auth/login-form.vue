@@ -3,10 +3,14 @@ import { FwbInput, FwbButton } from "flowbite-vue";
 import { ref, onMounted } from "vue";
 import { useForm, type FieldOptions } from "vue-hooks-form";
 import { useStorage } from "~/composables";
+import { useAuthStore } from "~/store";
 import { AuthService } from "~/services";
+import { ROUTES } from "~/constants";
 import type { Credentials } from "~/types/auth";
+
 const { useField, handleSubmit } = useForm();
 const { setStorageValue, getStorageValue } = useStorage();
+
 const rememberMe = ref<boolean>(false);
 const loading = ref<boolean>(false);
 
@@ -44,13 +48,16 @@ const checkRememberMe = () => {
 
 onMounted(() => {
 	checkRememberMe();
+
+	const { user, token } = useAuthStore();
+	console.log({ user, token });
 });
 </script>
 
 <template>
 	<form @submit="onFormSubmit" class="flex flex-col gap-y-4">
-		<h1 class="text-center text-white text-xl">LOGIN TO YOUR ACCOUNT</h1>
-		<p class="text-sm text-center text-gray-200">Manage your data</p>
+		<h1 class="text-center text-xl">LOGIN TO YOUR ACCOUNT</h1>
+		<p class="text-sm text-center text-gray-900">Manage your data</p>
 		<FwbInput
 			type="email"
 			v-model="formFields.email.value"
@@ -68,7 +75,7 @@ onMounted(() => {
 		<a href="#" class="text-sm text-white text-right underline">Forgot your password?</a>
 
 		<FwbButton type="submit" :disabled="loading">{{ loading ? "..." : "LOG IN" }}</FwbButton>
-		<RouterLink to="/auth/register">
+		<RouterLink :to="ROUTES.AUTH.REGISTER">
 			<FwbButton color="light" class="w-full">CREATE ACCOUNT</FwbButton>
 		</RouterLink>
 	</form>
