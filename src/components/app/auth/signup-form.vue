@@ -1,23 +1,12 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { FwbInput, FwbSelect, FwbButton } from "flowbite-vue";
+import { FwbInput, FwbButton } from "flowbite-vue";
 import { useForm, type FieldOptions } from "vue-hooks-form";
 import { AuthService } from "~/services";
 import { ROUTES } from "~/constants";
 
 const { useField, handleSubmit } = useForm();
 const loading = ref<boolean>(false);
-
-const accountTypeOptions = [
-	{
-		value: "teacher",
-		name: "Teacher",
-	},
-	{
-		value: "student",
-		name: "Student",
-	},
-];
 
 const formFields = {
 	email: useField("email", {

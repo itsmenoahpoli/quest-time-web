@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import PageHeader from "~/components/shared/page-header.vue";
+// import PageHeader from "~/components/shared/page-header.vue";
 </script>
 
 <template>
