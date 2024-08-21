@@ -15,12 +15,12 @@ const router = createRouter({
 				{
 					path: ROUTES.AUTH.LOGIN,
 					name: "auth-login",
-					component: () => import("~/views/auth/login.vue"),
+					component: () => import("~/views/auth/teahcer-login.vue"),
 				},
 				{
 					path: ROUTES.AUTH.REGISTER,
 					name: "auth-register",
-					component: () => import("~/views/auth/register.vue"),
+					component: () => import("~/views/auth/teacher-register.vue"),
 				},
 			],
 		},
