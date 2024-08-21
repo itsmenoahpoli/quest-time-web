@@ -101,7 +101,7 @@ onMounted(() => {
 			GO TO TEACHER LOGIN
 		</RouterLink>
 		<RouterLink
-			v-if="props.loginType === 'student'"
+			v-if="props.loginType === 'teacher'"
 			:to="ROUTES.AUTH.STUDENT_LOGIN"
 			class="text-sm text-blue-600 underline underline-offset-2"
 		>
