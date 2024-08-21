@@ -20,11 +20,6 @@ const accountTypeOptions = [
 ];
 
 const formFields = {
-	account_type: useField("account_type", {
-		rule: {
-			required: true,
-		},
-	} as FieldOptions),
 	email: useField("email", {
 		rule: {
 			required: true,
@@ -66,14 +61,8 @@ const onFormSubmit = handleSubmit(async (formData: unknown) => {
 
 <template>
 	<form @submit.prevent.once="onFormSubmit" class="flex flex-col gap-y-4">
-		<h1 class="text-center text-white text-2xl font-medium mb-4">CREATE YOUR ACCOUNT</h1>
+		<h1 class="text-center text-black text-xl font-medium mb-4">CREATE YOUR TEACHER ACCOUNT</h1>
 
-		<FwbSelect
-			v-model="formFields.account_type.value"
-			:ref="formFields.account_type.ref"
-			:options="accountTypeOptions"
-			placeholder="Enter account type"
-		/>
 		<FwbInput
 			type="text"
 			v-model="formFields.first_name.value"
@@ -113,7 +102,7 @@ const onFormSubmit = handleSubmit(async (formData: unknown) => {
 		<FwbButton type="submit" :disabled="loading">{{
 			loading ? "..." : "CREATE ACCOUNT"
 		}}</FwbButton>
-		<RouterLink :to="ROUTES.AUTH.LOGIN">
+		<RouterLink :to="ROUTES.AUTH.TEACHER_LOGIN">
 			<FwbButton color="light" class="w-full">GO TO LOGIN</FwbButton>
 		</RouterLink>
 	</form>

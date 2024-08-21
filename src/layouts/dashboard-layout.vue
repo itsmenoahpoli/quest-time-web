@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { onMounted, computed } from "vue";
+import { onMounted } from "vue";
+import { FwbSpinner } from "flowbite-vue";
 import { useAuthStore } from "~/store";
-import { SIDEBAR_LINKS } from "~/statics";
+// import { SIDEBAR_LINKS } from "~/statics";
 
 const { user, IS_AUTHENTICATED } = useAuthStore();
 
@@ -11,13 +12,13 @@ const checkAuth = () => {
 	}
 };
 
-const renderSidebarLinks = computed(() => {
-	return SIDEBAR_LINKS.TEACHER;
-});
+// const renderSidebarLinks = computed(() => {
+// 	return SIDEBAR_LINKS.TEACHER;
+// });
 
-const isSidebarLinkActive = (pathname: string) => {
-	return window.location.pathname === pathname;
-};
+// const isSidebarLinkActive = (pathname: string) => {
+// 	return window.location.pathname === pathname;
+// };
 
 onMounted(() => {
 	checkAuth();
@@ -27,7 +28,11 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="min-h-screen w-screen bg-slate-50">
+	<div class="h-screen flex flex-col justify-center items-center gap-y-3">
+		<FwbSpinner color="green" size="12" />
+		<p>FETCHING DASHBOARD DATA</p>
+	</div>
+	<!-- <div class="min-h-screen w-screen bg-slate-50">
 		<div class="sidebar h-screen bg-slate-950 fixed top-0 left-0">
 			<h1 class="text-center text-white text-2xl font-bold my-4">QUEST TIME</h1>
 
@@ -45,7 +50,7 @@ onMounted(() => {
 		<div class="content h-screen p-5">
 			<RouterView />
 		</div>
-	</div>
+	</div> -->
 </template>
 
 <style lange="scss" scoped>

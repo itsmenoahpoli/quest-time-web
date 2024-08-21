@@ -1,8 +1,9 @@
 export const ROUTES = {
 	DASHBOARD: "/dashboard/overview",
 	AUTH: {
-		LOGIN: "/auth/login",
-		REGISTER: "/auth/register",
+		STUDENT_LOGIN: "/auth/student/login",
+		TEACHER_LOGIN: "/auth/teacher/login",
+		TEACHER_REGISTER: "/auth/teacher/register",
 	},
 	ADMIN: {
 		ACCOUNTS: {

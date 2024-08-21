@@ -6,7 +6,11 @@ import {
 	onAuthStateChanged,
 	User,
 	updateProfile,
+	GoogleAuthProvider,
+	signInWithPopup,
 } from "firebase/auth";
+
+const provider = new GoogleAuthProvider();
 import { toast } from "vue3-toastify";
 import { FirebaseService, firebaseApp } from "./firebase.service";
 import { useAuthStore } from "~/store";
@@ -16,6 +20,29 @@ import type { Credentials, ProfileData } from "~/types/auth";
 
 export const AuthService = {
 	auth: getAuth(firebaseApp),
+
+	googleLogin() {
+		signInWithPopup(this.auth, provider)
+			.then((result) => {
+				const credential = GoogleAuthProvider.credentialFromResult(result);
+				const token = credential?.accessToken;
+				const user = result.user;
+
+				const { SET_USER, SET_TOKEN } = useAuthStore();
+
+				SET_USER({
+					displayName: user.displayName,
+					email: user.email,
+				});
+
+				SET_TOKEN(token);
+
+				window.location.href = "/dashboard";
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	},
 
 	async createAccount(accountData: ProfileData) {
 		return await createUserWithEmailAndPassword(this.auth, accountData.email, accountData.password)
@@ -60,7 +87,7 @@ export const AuthService = {
 		CLEAR_AUTH();
 
 		signOut(this.auth).then(() => {
-			window.location.pathname = ROUTES.AUTH.LOGIN;
+			window.location.pathname = ROUTES.AUTH.TEACHER_LOGIN;
 		});
 	},
 
